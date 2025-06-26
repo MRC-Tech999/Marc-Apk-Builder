@@ -1,35 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MarcAPK Builder</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>MarcAPK Studio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+    header {
+      background: #1e40af;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+    }
+    .controls {
+      margin-top: 20px;
+      text-align: center;
+    }
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    button:hover {
+      background-color: #1e3a8a;
+    }
+    .progress-bar {
+      width: 80%;
+      height: 10px;
+      background-color: #d1d5db;
+      border-radius: 5px;
+      margin: 20px auto;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      background-color: #3b82f6;
+      width: 0%;
+      border-radius: 5px;
+      transition: width 0.4s;
+    }
+    footer {
+      text-align: center;
+      color: #6b7280;
+      padding: 10px;
+      margin-top: 30px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>MarcAPK Builder</h1>
-    <p>Crée ton application Android et suis tes progrès en direct.</p>
-  </header>
 
-  <main>
-    <section class="form-section">
-      <h2>Créer un nouveau projet APK</h2>
-      <input type="text" id="projectName" placeholder="Nom du projet" />
-      <textarea id="projectDesc" placeholder="Description du projet"></textarea>
-      <button onclick="createProject()">Créer le projet</button>
-    </section>
+<header>
+  <h1>MarcAPK Studio</h1>
+  <p>Crée ton APK Android avec HTML/CSS/JS et vois tes progrès !</p>
+</header>
 
-    <section class="projects-section">
-      <h2>Mes projets</h2>
-      <div id="projectsContainer"></div>
-    </section>
-  </main>
+<main>
+  <div>
+    <h2>💻 Code ton app ici</h2>
+    <textarea id="codeEditor">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ma mini app</title>
+</head>
+<body>
+  <h1>Hello from MarcAPK!</h1>
+</body>
+</html>
+    </textarea>
+    <div class="controls">
+      <button onclick="runCode()">Exécuter</button>
+      <button onclick="downloadCode()">Télécharger</button>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
 
-  <footer>
-    <p>&copy; 2025 Marc-Tech. Tous droits réservés.</p>
-  </footer>
+  <div>
+    <h2>🧪 Aperçu en direct</h2>
+    <iframe id="preview"></iframe>
+  </div>
+</main>
 
-  <script src="script.js"></script>
+<footer>
+  &copy; 2025 Marc-Tech. Tous droits réservés.
+</footer>
+
+<script>
+  function runCode() {
+    const code = document.getElementById('codeEditor').value;
+    const preview = document.getElementById('preview');
+    preview.srcdoc = code;
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const code = document.getElementById('codeEditor').value;
+    const length = code.length;
+    let percent = Math.min(100, Math.floor(length / 15)); // 15 caractères = 1%
+    document.getElementById('progressFill').style.width = percent + '%';
+  }
+
+  function downloadCode() {
+    const content = document.getElementById('codeEditor').value;
+    const blob = new Blob([content], {type: "text/html"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "marc-apk-project.html";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  window.onload = runCode;
+</script>
+
 </body>
 </html>
