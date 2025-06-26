@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MarcAPK Builder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>MarcAPK Builder</h1>
+    <p>Crée ton application Android et suis tes progrès en direct.</p>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Créer un nouveau projet APK</h2>
+      <input type="text" id="projectName" placeholder="Nom du projet" />
+      <textarea id="projectDesc" placeholder="Description du projet"></textarea>
+      <button onclick="createProject()">Créer le projet</button>
+    </section>
+
+    <section class="projects-section">
+      <h2>Mes projets</h2>
+      <div id="projectsContainer"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Marc-Tech. Tous droits réservés.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
